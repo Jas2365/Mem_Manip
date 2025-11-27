@@ -19,6 +19,7 @@ struct Memory_Block {
 
         uint8_t* get_mem_ptr();
 
+
     private:
         uint16_t stack_ptr_m = 0;
         uint8_t mem_m[mem_size] = {};
