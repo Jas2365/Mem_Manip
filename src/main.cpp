@@ -1,40 +1,54 @@
 #include <iostream>
 #include <stdint.h>
 #include <iomanip>
-#include <Memory_Block.hpp>
+// #include <Memory_Block.hpp>
 #include <fstream>
-#include <origin.hpp>
+// #include <origin.hpp>
+#include <big_ints.hpp>
 
 
 int main(void) {
 
-    const size_t mem_size = (81 * 2) + 4;
-    Memory_Block<mem_size> mb;
+    data_1024_t bigint = {};
 
-    uint8_t signature[] = { 0x23, 0x65 };
-
-    uint8_t *header = signature;
-    uint8_t *footer = signature;
-
-    mb.cpy_many_byte_to_mem(header, sizeof(signature));
-    
-    // mb.cpy_many_byte_to_mem((uint8_t*)origin::all_ranks, total_ranks);
-    // mb.cpy_many_byte_to_mem((uint8_t*)origin::all_types, total_types);
-    
-    for(int i = 0; i < total_origins; i++){
-        origin::origin_t* ori = &origin::all_origin[i];
-        mb.cpy_many_byte_to_mem((uint8_t*)ori, 2);
+    for(int i = 0; i< 16; i++){
+        bigint.data[i] = 0xff023450023450ff;
     }
+
+    uint1024_t st_24;
+
+    st_24.init(bigint);
+
+    st_24.print();
+
+
+    // const size_t mem_size = (81 * 2) + 4;
+    // Memory_Block<mem_size> mb;
+
+    // uint8_t signature[] = { 0x23, 0x65 };
+
+    // uint8_t *header = signature;
+    // uint8_t *footer = signature;
+
+    // mb.cpy_many_byte_to_mem(header, sizeof(signature));
+    
+    // // mb.cpy_many_byte_to_mem((uint8_t*)origin::all_ranks, total_ranks);
+    // // mb.cpy_many_byte_to_mem((uint8_t*)origin::all_types, total_types);
+    
+    // for(int i = 0; i < total_origins; i++){
+    //     origin::origin_t* ori = &origin::all_origin[i];
+    //     mb.cpy_many_byte_to_mem((uint8_t*)ori, 2);
+    // }
     
 
-    mb.cpy_many_byte_to_mem(footer, sizeof(signature));
+    // mb.cpy_many_byte_to_mem(footer, sizeof(signature));
 
-    mb.print_full();
+    // mb.print_full();
 
     
-    std::ofstream fp("bin/origins.core", std::ios::binary);
+    // std::ofstream fp("bin/origins.core", std::ios::binary);
 
-    fp.write(reinterpret_cast<const char*>(mb.get_mem_ptr()), mem_size);
+    // fp.write(reinterpret_cast<const char*>(mb.get_mem_ptr()), mem_size);
     
 
     // uint8_t *file_ptr = (uint8_t*)&b;
